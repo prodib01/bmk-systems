@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom';
 
 const ProductCard = ({ icon, title, description, link }) => {
     return (
-        <Card className="product-card h-100 border-0 shadow-sm">
-            <div className="text-center pt-4">
-                {icon}
-            </div>
+        <Card className="product-card h-100 border-0">
             <Card.Body className="text-center">
-                <Card.Title className="mb-3">{title}</Card.Title>
+                <div className="icon-container">
+                    {icon}
+                </div>
+                <Card.Title>{title}</Card.Title>
                 <Card.Text>
                     {description}
                 </Card.Text>
@@ -17,7 +17,7 @@ const ProductCard = ({ icon, title, description, link }) => {
                     as={Link}
                     to={link}
                     variant="outline-primary"
-                    className="mt-3"
+                    className="mt-4 btn-rounded"
                 >
                     Learn More
                 </Button>

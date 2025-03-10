@@ -1,15 +1,18 @@
 import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { FaArrowRight } from 'react-icons/fa';
 
 const HeroSection = () => {
     return (
         <section className="hero-section">
             <Container>
-                <Row className="align-items-center">
+                <Row className="align-items-center min-vh-100">
                     <Col lg={6} md={12} className="mb-5 mb-lg-0">
-                        <h1 className="display-4 fw-bold mb-4">Innovative ICT Solutions for Your Business</h1>
-                        <p className="lead mb-4">
+                        <h1 className="display-4 fw-bold mb-4">
+                            Innovative <span className="text-gradient">ICT Solutions</span> for Your Business
+                        </h1>
+                        <p className="lead mb-5">
                             We provide cutting-edge software solutions to transform and enhance your business operations.
                             From HR systems to custom software development, we've got you covered.
                         </p>
@@ -19,16 +22,16 @@ const HeroSection = () => {
                                 to="/products"
                                 variant="light"
                                 size="lg"
-                                className="px-4"
+                                className="btn-rounded btn-with-icon"
                             >
-                                Our Solutions
+                                Our Solutions <FaArrowRight />
                             </Button>
                             <Button
                                 as={Link}
                                 to="/contact"
                                 variant="outline-light"
                                 size="lg"
-                                className="px-4"
+                                className="btn-rounded"
                             >
                                 Contact Us
                             </Button>
@@ -38,7 +41,7 @@ const HeroSection = () => {
                         <img
                             src="/path/to/hero-image.png"
                             alt="BMK Systems Solutions"
-                            className="img-fluid"
+                            className="img-fluid fade-in-right"
                         />
                     </Col>
                 </Row>
