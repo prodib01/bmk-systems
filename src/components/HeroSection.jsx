@@ -39,7 +39,7 @@ const HeroSection = () => {
                     </Col>
                     <Col lg={6} md={12} className="d-none d-lg-block">
                         <img
-                            src="/path/to/hero-image.png"
+                            src="../assets/images/hero.jpg"
                             alt="BMK Systems Solutions"
                             className="img-fluid fade-in-right"
                         />

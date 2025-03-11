@@ -8,11 +8,13 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Products from './pages/Products';
+import ScrollAnimation from "./components/ScrollAnimation";
 
 
 function App() {
   return (
       <Router>
+          <ScrollAnimation />
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />

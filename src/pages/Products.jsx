@@ -1,12 +1,15 @@
-import React from 'react';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Container, Row, Col, Card, Button, Badge } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import {
     FaUsers, FaShoppingCart, FaCode, FaLightbulb, FaLaptop,
-    FaServer, FaNetworkWired, FaHeadset
+    FaServer, FaNetworkWired, FaHeadset, FaArrowRight, FaStar
 } from 'react-icons/fa';
+import "../assets/css/style.css"
 
 const Products = () => {
+    const [hoveredCard, setHoveredCard] = useState(null);
+
     const productCategories = [
         {
             id: 'hr',
@@ -20,7 +23,8 @@ const Products = () => {
                 'Performance evaluation',
                 'Recruitment and onboarding',
                 'Training and development tracking'
-            ]
+            ],
+            popular: true
         },
         {
             id: 'pos',
@@ -34,7 +38,8 @@ const Products = () => {
                 'Employee management',
                 'Multi-store capabilities',
                 'Online and offline operation'
-            ]
+            ],
+            popular: false
         },
         {
             id: 'software',
@@ -48,7 +53,8 @@ const Products = () => {
                 'Enterprise software',
                 'API integration',
                 'Software maintenance and support'
-            ]
+            ],
+            popular: true
         },
         {
             id: 'innovation',
@@ -62,7 +68,8 @@ const Products = () => {
                 'Data analytics and visualization',
                 'Cloud migration services',
                 'Blockchain solutions'
-            ]
+            ],
+            popular: false
         },
         {
             id: 'hardware',
@@ -76,77 +83,121 @@ const Products = () => {
                 'Printers and scanners',
                 'Point-of-sale hardware',
                 'Computer accessories'
-            ]
+            ],
+            popular: false
         },
         {
             id: 'server',
-            title: 'Server Management & Hosting',
+            title: 'Server Solutions',
             icon: <FaServer className="display-4 text-primary mb-3" />,
-            description: 'Reliable hosting and server management solutions to ensure high availability and security.',
+            description: 'Reliable server infrastructure solutions to power your business operations with maximum uptime and security.',
             features: [
-                'Dedicated and cloud hosting',
-                'Server security management',
-                'Load balancing and optimization',
+                'Server setup and configuration',
+                'Virtualization solutions',
+                'Server maintenance and monitoring',
                 'Backup and disaster recovery',
-                'Database management',
-                '24/7 monitoring and support'
-            ]
+                'Server security hardening',
+                'Scalable server architecture'
+            ],
+            popular: false
         },
         {
             id: 'networking',
-            title: 'Networking Solutions',
+            title: 'Networking Services',
             icon: <FaNetworkWired className="display-4 text-primary mb-3" />,
-            description: 'End-to-end networking solutions, from installation to maintenance and security.',
+            description: 'Comprehensive networking solutions to connect your business and ensure secure, efficient data transmission.',
             features: [
                 'Network design and implementation',
-                'Wi-Fi and LAN solutions',
-                'Cybersecurity and firewall setup',
-                'VPN and remote access solutions',
+                'Wireless network solutions',
+                'Network security',
+                'VPN and remote access',
                 'Network monitoring and maintenance',
-                'Cloud networking solutions'
-            ]
+                'Bandwidth optimization'
+            ],
+            popular: true
         },
         {
             id: 'support',
-            title: 'Technical Support & IT Helpdesk',
+            title: 'Technical Support Services',
             icon: <FaHeadset className="display-4 text-primary mb-3" />,
-            description: 'Professional IT support services to keep your systems running smoothly.',
+            description: 'Responsive technical support services to keep your IT infrastructure running smoothly with minimal downtime.',
             features: [
-                'Remote and on-site support',
-                'Software troubleshooting',
-                'Hardware repairs and maintenance',
-                'System upgrades and optimization',
-                'Helpdesk ticketing system',
-                'Training and IT consultation'
-            ]
+                '24/7 helpdesk support',
+                'Remote troubleshooting',
+                'On-site technical assistance',
+                'System updates and patching',
+                'User training and education',
+                'Preventive maintenance'
+            ],
+            popular: false
         }
     ];
 
     return (
-        <Container className="py-5">
-            <h2 className="text-center mb-4">Our Products & Services</h2>
-            <Row>
-                {productCategories.map((product) => (
-                    <Col key={product.id} md={6} lg={4} className="mb-4">
-                        <Card className="h-100 shadow-sm">
-                            <Card.Body>
-                                {product.icon}
-                                <Card.Title>{product.title}</Card.Title>
-                                <Card.Text>{product.description}</Card.Text>
-                                <ul className="list-unstyled">
-                                    {product.features.map((feature, index) => (
-                                        <li key={index}>• {feature}</li>
-                                    ))}
-                                </ul>
-                                <Link to={`/products/${product.id}`}>
-                                    <Button variant="primary">Learn More</Button>
-                                </Link>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                ))}
-            </Row>
-        </Container>
+        <div className="products-section py-5">
+            <Container>
+                <div className="text-center mb-5">
+                    <h1 className="display-4 fw-bold text-primary">Our Products & Services</h1>
+                    <p className="lead text-muted">Comprehensive IT solutions tailored to your business needs</p>
+                    <div className="separator my-4"></div>
+                </div>
+
+                <Row xs={1} md={2} lg={3} className="g-4">
+                    {productCategories.map((category) => (
+                        <Col key={category.id}>
+                            <Card
+                                className={`h-100 product-card ${hoveredCard === category.id ? 'hovered' : ''}`}
+                                onMouseEnter={() => setHoveredCard(category.id)}
+                                onMouseLeave={() => setHoveredCard(null)}
+                            >
+                                {category.popular && (
+                                    <div className="popular-badge">
+                                        <Badge bg="warning" className="px-3 py-2">
+                                            <FaStar className="me-1" /> Popular Choice
+                                        </Badge>
+                                    </div>
+                                )}
+                                <Card.Body className="text-center p-4">
+                                    <div className="icon-container mb-3">
+                                        {category.icon}
+                                    </div>
+                                    <Card.Title as="h3" className="fw-bold mb-3">{category.title}</Card.Title>
+                                    <Card.Text className="text-muted mb-4">{category.description}</Card.Text>
+
+                                    <div className="features-list mb-4">
+                                        <h5 className="features-heading">Key Features</h5>
+                                        <ul className="list-unstyled">
+                                            {category.features.map((feature, index) => (
+                                                <li key={index} className="mb-2">
+                                                    <span className="feature-bullet me-2">✓</span>
+                                                    {feature}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                </Card.Body>
+                                <Card.Footer className="bg-transparent border-0 pb-4">
+                                    <Link to={`/products/${category.id}`}>
+                                        <Button variant="outline-primary" className="learn-more-btn">
+                                            Learn More <FaArrowRight className="ms-2" />
+                                        </Button>
+                                    </Link>
+                                </Card.Footer>
+                            </Card>
+                        </Col>
+                    ))}
+                </Row>
+
+                <div className="text-center mt-5">
+                    <h3 className="mb-4">Need a customized solution?</h3>
+                    <Link to="/contact">
+                        <Button variant="primary" size="lg" className="px-5 py-3 contact-btn">
+                            Contact Our Experts
+                        </Button>
+                    </Link>
+                </div>
+            </Container>
+        </div>
     );
 };
 
