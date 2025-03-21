@@ -1,106 +1,104 @@
 import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, ListGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
+import logo from '../assets/images/logo2.png';
 
-const Footer = () => {
+function Footer() {
     const currentYear = new Date().getFullYear();
 
     return (
-        <footer className="footer">
-            <div className="footer-top">
-                <Container>
-                    <Row className="gy-4">
-                        <Col lg={5} md={6} className="mb-4 mb-md-0">
-                            <div className="footer-info">
-                                <h3 className="footer-title">
-                                    <span className="text-gradient">BMK</span> Systems
-                                </h3>
-                                <p className="footer-description">
-                                    Providing innovative ICT solutions to businesses across various sectors.
-                                    Our mission is to empower organizations with cutting-edge technology
-                                    that drives growth and efficiency.
-                                </p>
-                                <div className="footer-social">
-                                    <a href="https://facebook.com" aria-label="Facebook">
-                                        <FaFacebook />
-                                    </a>
-                                    <a href="https://twitter.com" aria-label="Twitter">
-                                        <FaTwitter />
-                                    </a>
-                                    <a href="https://linkedin.com" aria-label="LinkedIn">
-                                        <FaLinkedin />
-                                    </a>
-                                    <a href="https://instagram.com" aria-label="Instagram">
-                                        <FaInstagram />
-                                    </a>
-                                </div>
-                            </div>
-                        </Col>
+        <footer className="bg-dark text-white pt-5 pb-3">
+            <Container>
+                <Row className="mb-4">
+                    <Col lg={4} className="mb-4 mb-lg-0">
+                        <div className="mb-3">
+                            <img src={logo} alt="BMK-Systems Logo" height="50" />
+                        </div>
+                        <p>BMK-Systems provides cutting-edge software solutions and IT services to transform your business operations and drive growth in today's digital landscape.</p>
+                        <div className="d-flex mt-3">
+                            <a href="https://facebook.com" className="me-3 text-white" aria-label="Facebook">
+                                <i className="bi bi-facebook fs-4"></i>
+                            </a>
+                            <a href="https://twitter.com" className="me-3 text-white" aria-label="Twitter">
+                                <i className="bi bi-twitter-x fs-4"></i>
+                            </a>
+                            <a href="https://linkedin.com" className="me-3 text-white" aria-label="LinkedIn">
+                                <i className="bi bi-linkedin fs-4"></i>
+                            </a>
+                            <a href="https://instagram.com" className="text-white" aria-label="Instagram">
+                                <i className="bi bi-instagram fs-4"></i>
+                            </a>
+                        </div>
+                    </Col>
 
-                        <Col lg={3} md={6} className="footer-links-column">
-                            <h4 className="footer-title">Quick Links</h4>
-                            <ul className="footer-links">
-                                <li>
-                                    <Link to="/">Home</Link>
-                                </li>
-                                <li>
-                                    <Link to="/about">About Us</Link>
-                                </li>
-                                <li>
-                                    <Link to="/products">Products</Link>
-                                </li>
-                                <li>
-                                    <Link to="/contact">Contact</Link>
-                                </li>
-                            </ul>
-                        </Col>
+                    <Col md={6} lg={4} className="mb-4 mb-lg-0">
+                        <h5 className="fw-bold mb-3">Quick Links</h5>
+                        <Row>
+                            <Col xs={6}>
+                                <ListGroup variant="flush" className="footer-links">
+                                    <ListGroup.Item action as={Link} to="/" className="bg-transparent text-white border-0 ps-0 py-1">Home</ListGroup.Item>
+                                    <ListGroup.Item action as={Link} to="/about" className="bg-transparent text-white border-0 ps-0 py-1">About Us</ListGroup.Item>
+                                    <ListGroup.Item action as={Link} to="/products" className="bg-transparent text-white border-0 ps-0 py-1">Products & Services</ListGroup.Item>
+                                    <ListGroup.Item action as={Link} to="/training" className="bg-transparent text-white border-0 ps-0 py-1">Training</ListGroup.Item>
+                                </ListGroup>
+                            </Col>
+                            <Col xs={6}>
+                                <ListGroup variant="flush" className="footer-links">
+                                    <ListGroup.Item action as={Link} to="/contact" className="bg-transparent text-white border-0 ps-0 py-1">Contact Us</ListGroup.Item>
+                                    <ListGroup.Item action as={Link} to="/callback" className="bg-transparent text-white border-0 ps-0 py-1">Request Callback</ListGroup.Item>
+                                    <ListGroup.Item action as="a" className="bg-transparent text-white border-0 ps-0 py-1">Privacy Policy</ListGroup.Item>
+                                    <ListGroup.Item action as="a" className="bg-transparent text-white border-0 ps-0 py-1">Terms of Service</ListGroup.Item>
+                                </ListGroup>
+                            </Col>
+                        </Row>
+                    </Col>
 
-                        <Col lg={4} md={6}>
-                            <h4 className="footer-title">Contact Us</h4>
-                            <div className="contact-info">
-                                <div className="contact-item">
-                                    <FaMapMarkerAlt className="icon" />
+                    <Col md={6} lg={4}>
+                        <h5 className="fw-bold mb-3">Contact Us</h5>
+                        <ListGroup variant="flush" className="contact-info">
+                            <ListGroup.Item className="bg-transparent text-white border-0 ps-0 py-2">
+                                <div className="d-flex">
+                                    <div className="me-3">
+                                        <i className="bi bi-geo-alt-fill text-primary"></i>
+                                    </div>
                                     <div>
-                                        <p>23 Innovation Drive</p>
-                                        <p>Kampala, Uganda</p>
+                                        123 Business Park, Example Street<br />
+                                        City, Country
                                     </div>
                                 </div>
-
-                                <div className="contact-item">
-                                    <FaEnvelope className="icon" />
+                            </ListGroup.Item>
+                            <ListGroup.Item className="bg-transparent text-white border-0 ps-0 py-2">
+                                <div className="d-flex">
+                                    <div className="me-3">
+                                        <i className="bi bi-telephone-fill text-primary"></i>
+                                    </div>
                                     <div>
-                                        <p>info@bmksystems.com</p>
-                                        <p>support@bmksystems.com</p>
+                                        +123 456 7890
                                     </div>
                                 </div>
-
-                                <div className="contact-item">
-                                    <FaPhone className="icon" />
+                            </ListGroup.Item>
+                            <ListGroup.Item className="bg-transparent text-white border-0 ps-0 py-2">
+                                <div className="d-flex">
+                                    <div className="me-3">
+                                        <i className="bi bi-envelope-fill text-primary"></i>
+                                    </div>
                                     <div>
-                                        <p>+256 700 000 000</p>
-                                        <p>+256 780 000 000</p>
+                                        info@bmk-systems.com
                                     </div>
                                 </div>
-                            </div>
-                        </Col>
-                    </Row>
-                </Container>
-            </div>
+                            </ListGroup.Item>
+                        </ListGroup>
+                    </Col>
+                </Row>
 
-            <div className="footer-bottom">
-                <Container>
-                    <Row>
-                        <Col className="text-center">
-                            <p className="copyright">
-                                &copy; {currentYear} <strong>BMK Systems</strong>. All rights reserved.
-                            </p>
-                        </Col>
-                    </Row>
-                </Container>
-            </div>
+                <hr className="my-4 bg-secondary" />
+
+                <div className="text-center">
+                    <p className="mb-0">&copy; {currentYear} BMK-Systems. All rights reserved.</p>
+                </div>
+            </Container>
         </footer>
     );
-};
+}
 
 export default Footer;

@@ -1,155 +1,99 @@
 import React from 'react';
-import { Container, Row, Col, Button, Card } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { FaDesktop, FaUsers, FaShoppingCart, FaCode, FaLaptop, FaArrowRight, FaCheckCircle } from 'react-icons/fa';
+import heroImage from '../assets/images/hero.jpg'; // Add your hero image
 
-import HeroSection from '../components/HeroSection';
-import ProductCard from '../components/ProductCard';
-
-const Home = () => {
-    const products = [
+function Home() {
+    const services = [
         {
-            icon: <FaUsers className="fa-2x" />,
-            title: 'HR Information Systems',
-            description: 'Comprehensive HR management solutions to streamline employee data, payroll, recruitment, and performance evaluations.',
-            link: '/products'
+            title: "HR Information Systems",
+            description: "Comprehensive HR solutions for managing employee data, payroll, and performance.",
+            icon: "bi bi-people-fill"
         },
         {
-            icon: <FaShoppingCart className="fa-2x" />,
-            title: 'Sales POS Systems',
-            description: 'Modern point-of-sale systems that integrate inventory, customer management, and analytics for retail businesses.',
-            link: '/products'
+            title: "Sales POS Systems",
+            description: "Modern point-of-sale solutions for retail and service businesses.",
+            icon: "bi bi-cart-check-fill"
         },
         {
-            icon: <FaCode className="fa-2x" />,
-            title: 'Software Development',
-            description: 'Custom software development services tailored to your business needs, from web applications to mobile solutions.',
-            link: '/products'
+            title: "Software Development",
+            description: "Custom software solutions tailored to your business needs.",
+            icon: "bi bi-code-square"
         },
         {
-            icon: <FaDesktop className="fa-2x" />,
-            title: 'ICT Innovation Solutions',
-            description: 'Cutting-edge technological solutions to solve complex business challenges and drive digital transformation.',
-            link: '/products'
+            title: "ICT Innovation Solutions",
+            description: "Specialized innovations to transform your business processes.",
+            icon: "bi bi-lightbulb-fill"
+        },
+        {
+            title: "Hardware Sales",
+            description: "Quality computer hardware and peripherals for businesses.",
+            icon: "bi bi-pc-display"
+        },
+        {
+            title: "Training Services",
+            description: "Professional training in ODK, REDCap, programming, and more.",
+            icon: "bi bi-mortarboard-fill"
         }
-    ];
-
-    const features = [
-        "Expert consulting and implementation",
-        "Customized solutions for your specific needs",
-        "Ongoing technical support and maintenance",
-        "Training and knowledge transfer"
     ];
 
     return (
         <>
-            <HeroSection />
+            {/* Hero Section */}
+            <div className="hero-section bg-primary text-white py-5" style={{
+                backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${heroImage})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+            }}>
+                <Container className="py-5">
+                    <Row className="py-5">
+                        <Col md={8} className="py-5">
+                            <h1 className="display-4 fw-bold">Innovative ICT Solutions</h1>
+                            <p className="lead">BMK-Systems provides cutting-edge software solutions and IT services to transform your business.</p>
+                            <div className="mt-4">
+                                <Button as={Link} to="/products" variant="light" size="lg" className="me-3">Explore Solutions</Button>
+                                <Button as={Link} to="/callback" variant="outline-light" size="lg">Request a Callback</Button>
+                            </div>
+                        </Col>
+                    </Row>
+                </Container>
+            </div>
 
-            {/* Featured Products Section */}
-            <section className="section-padding">
-                <Container>
-                    <div className="section-title text-center">
-                        <h2>Our Solutions</h2>
-                        <p>
-                            We offer a wide range of ICT products and services designed to enhance your business operations and drive growth.
-                        </p>
-                    </div>
+            {/* Services Section */}
+            <Container className="py-5">
+                <div className="text-center mb-5">
+                    <h2 className="fw-bold">Our Products & Services</h2>
+                    <p className="lead text-muted">Comprehensive ICT solutions for your business needs</p>
+                </div>
 
-                    <Row>
-                        {products.map((product, index) => (
-                            <Col lg={3} md={6} className="mb-4" key={index}>
-                                <div className="product-card card h-100 card-hover-effect">
-                                    <div className="card-body text-center">
-                                        <div className="icon-container">
-                                            {product.icon}
-                                        </div>
-                                        <h4 className="card-title">{product.title}</h4>
-                                        <p className="card-text">{product.description}</p>
-                                        <Link to={product.link} className="btn btn-sm btn-primary mt-3">
-                                            Learn More <FaArrowRight className="ms-1" />
-                                        </Link>
+                <Row xs={1} md={2} lg={3} className="g-4">
+                    {services.map((service, idx) => (
+                        <Col key={idx}>
+                            <Card className="h-100 shadow-sm hover-card">
+                                <Card.Body className="text-center p-4">
+                                    <div className="mb-3">
+                                        <i className={`${service.icon} fs-1 text-primary`}></i>
                                     </div>
-                                </div>
-                            </Col>
-                        ))}
-                    </Row>
-
-                    <div className="text-center mt-5">
-                        <Button
-                            as={Link}
-                            to="/products"
-                            className="btn-gradient btn-lg"
-                        >
-                            View All Solutions
-                        </Button>
-                    </div>
-                </Container>
-            </section>
-
-            {/* About Section Preview */}
-            <section className="section-padding bg-light">
-                <Container>
-                    <Row className="align-items-center">
-                        <Col lg={6} className="mb-5 mb-lg-0">
-                            <div className="about-img">
-                                <img
-                                    src="/path/to/about-image.jpg"
-                                    alt="About BMK Systems"
-                                    className="img-fluid rounded"
-                                />
-                            </div>
+                                    <Card.Title className="fw-bold">{service.title}</Card.Title>
+                                    <Card.Text>{service.description}</Card.Text>
+                                    <Button as={Link} to={`/products#${service.title.toLowerCase().replace(/\s+/g, '-')}`} variant="outline-primary" className="mt-2">Learn More</Button>
+                                </Card.Body>
+                            </Card>
                         </Col>
-                        <Col lg={6}>
-                            <div className="ps-lg-5">
-                                <div className="section-title">
-                                    <h2>Who We Are</h2>
-                                </div>
-                                <p className="lead mb-4">
-                                    BMK Systems is a leading provider of innovative ICT solutions in Uganda, helping businesses leverage technology for growth and efficiency.
-                                </p>
-                                <p className="mb-4">
-                                    Founded by Brenda Masaba Kakande, our company brings together expertise in software development, systems integration, and hardware solutions to provide comprehensive ICT services.
-                                </p>
+                    ))}
+                </Row>
+            </Container>
 
-                                <ul className="feature-list">
-                                    {features.map((feature, index) => (
-                                        <li key={index}>{feature}</li>
-                                    ))}
-                                </ul>
-
-                                <Button
-                                    as={Link}
-                                    to="/about"
-                                    className="btn-outline-gradient mt-4 btn-lg"
-                                >
-                                    Learn More About Us
-                                </Button>
-                            </div>
-                        </Col>
-                    </Row>
+            {/* CTA Section */}
+            <div className="bg-light py-5 mt-5">
+                <Container className="text-center">
+                    <h3>Ready to transform your business?</h3>
+                    <p className="lead">Our team of experts is ready to assist you with all your ICT needs.</p>
+                    <Button as={Link} to="/contact" variant="primary" size="lg" className="mt-3">Get in Touch</Button>
                 </Container>
-            </section>
-
-            {/* Call to Action Section */}
-            <section className="cta-section">
-                <Container className="text-center py-4">
-                    <h2 className="mb-4">Ready to Transform Your Business?</h2>
-                    <p className="lead mb-4 w-75 mx-auto">
-                        Contact us today to discuss how our solutions can help your business grow and operate more efficiently.
-                    </p>
-                    <Button
-                        as={Link}
-                        to="/contact"
-                        variant="light"
-                        size="lg"
-                        className="btn-rounded"
-                    >
-                        Get in Touch <FaArrowRight className="ms-2" />
-                    </Button>
-                </Container>
-            </section>
+            </div>
         </>
     );
-};
+}
 
 export default Home;

@@ -1,204 +1,145 @@
-import React, { useState } from 'react';
-import { Container, Row, Col, Card, Button, Badge } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import {
-    FaUsers, FaShoppingCart, FaCode, FaLightbulb, FaLaptop,
-    FaServer, FaNetworkWired, FaHeadset, FaArrowRight, FaStar
-} from 'react-icons/fa';
-import "../assets/css/style.css"
+import React from 'react';
+import { Container, Row, Col, Card, Accordion } from 'react-bootstrap';
 
-const Products = () => {
-    const [hoveredCard, setHoveredCard] = useState(null);
-
-    const productCategories = [
+function Products() {
+    const solutions = [
         {
-            id: 'hr',
-            title: 'Human Resource Information Systems',
-            icon: <FaUsers className="display-4 text-primary mb-3" />,
-            description: 'Comprehensive HR management solutions to streamline employee data, payroll, recruitment, and performance evaluations.',
+            id: "hr-information-systems",
+            title: "Human Resource Information Systems",
+            description: "Comprehensive HR solutions designed for African businesses",
             features: [
-                'Employee records management',
-                'Payroll processing',
-                'Leave and attendance tracking',
-                'Performance evaluation',
-                'Recruitment and onboarding',
-                'Training and development tracking'
+                "Employee data management",
+                "Payroll processing",
+                "Leave management",
+                "Performance evaluation",
+                "Recruitment tracking",
+                "Training management"
             ],
-            popular: true
+            details: "Our HRIS provides a complete solution for managing your workforce efficiently. The system is designed with African businesses in mind, accommodating local regulations and requirements."
         },
         {
-            id: 'pos',
-            title: 'Sales POS Systems',
-            icon: <FaShoppingCart className="display-4 text-primary mb-3" />,
-            description: 'Modern point-of-sale systems that integrate inventory, customer management, and analytics for retail businesses.',
+            id: "sales-pos-systems",
+            title: "Sales POS Systems",
+            description: "Modern point-of-sale solutions for retail and service businesses",
             features: [
-                'Inventory management',
-                'Sales tracking and reporting',
-                'Customer relationship management',
-                'Employee management',
-                'Multi-store capabilities',
-                'Online and offline operation'
+                "Inventory management",
+                "Sales tracking and reporting",
+                "Customer management",
+                "Multi-payment options",
+                "Receipt generation",
+                "Data analysis and insights"
             ],
-            popular: false
+            details: "Our POS systems help businesses streamline their sales processes, manage inventory efficiently, and gain valuable insights into customer behavior and sales patterns."
         },
         {
-            id: 'software',
-            title: 'Software Development Services',
-            icon: <FaCode className="display-4 text-primary mb-3" />,
-            description: 'Custom software development services tailored to your business needs, from web applications to mobile solutions.',
+            id: "software-development",
+            title: "Software Development Services",
+            description: "Custom software solutions tailored to your business needs",
             features: [
-                'Web application development',
-                'Mobile app development',
-                'E-commerce solutions',
-                'Enterprise software',
-                'API integration',
-                'Software maintenance and support'
+                "Custom application development",
+                "Web application development",
+                "Mobile app development",
+                "Database design and optimization",
+                "API development and integration",
+                "Software maintenance and support"
             ],
-            popular: true
+            details: "Our team of experienced developers creates tailored software solutions that address your specific business challenges and requirements."
         },
         {
-            id: 'innovation',
-            title: 'ICT Specialized Innovation Solutions',
-            icon: <FaLightbulb className="display-4 text-primary mb-3" />,
-            description: 'Cutting-edge technological solutions to solve complex business challenges and drive digital transformation.',
+            id: "ict-innovation",
+            title: "ICT Specialized Innovation Solutions",
+            description: "Advanced technological innovations to transform your business",
             features: [
-                'Digital transformation consulting',
-                'AI and machine learning solutions',
-                'Business process automation',
-                'Data analytics and visualization',
-                'Cloud migration services',
-                'Blockchain solutions'
+                "IoT solutions",
+                "AI and machine learning integration",
+                "Business process automation",
+                "Digital transformation consulting",
+                "Cloud solutions",
+                "Cybersecurity implementation"
             ],
-            popular: false
+            details: "We help businesses leverage cutting-edge technologies to stay ahead of the competition and optimize their operations."
         },
         {
-            id: 'hardware',
-            title: 'Hardware Sales',
-            icon: <FaLaptop className="display-4 text-primary mb-3" />,
-            description: 'Quality computer hardware and networking equipment for businesses of all sizes.',
+            id: "hardware-sales",
+            title: "Hardware Sales",
+            description: "Quality computer hardware and peripherals for businesses",
             features: [
-                'Computers and laptops',
-                'Servers and storage solutions',
-                'Networking equipment',
-                'Printers and scanners',
-                'Point-of-sale hardware',
-                'Computer accessories'
+                "Computers and servers",
+                "Networking equipment",
+                "Printers and scanners",
+                "Storage devices",
+                "POS hardware",
+                "Custom hardware solutions"
             ],
-            popular: false
-        },
-        {
-            id: 'server',
-            title: 'Server Solutions',
-            icon: <FaServer className="display-4 text-primary mb-3" />,
-            description: 'Reliable server infrastructure solutions to power your business operations with maximum uptime and security.',
-            features: [
-                'Server setup and configuration',
-                'Virtualization solutions',
-                'Server maintenance and monitoring',
-                'Backup and disaster recovery',
-                'Server security hardening',
-                'Scalable server architecture'
-            ],
-            popular: false
-        },
-        {
-            id: 'networking',
-            title: 'Networking Services',
-            icon: <FaNetworkWired className="display-4 text-primary mb-3" />,
-            description: 'Comprehensive networking solutions to connect your business and ensure secure, efficient data transmission.',
-            features: [
-                'Network design and implementation',
-                'Wireless network solutions',
-                'Network security',
-                'VPN and remote access',
-                'Network monitoring and maintenance',
-                'Bandwidth optimization'
-            ],
-            popular: true
-        },
-        {
-            id: 'support',
-            title: 'Technical Support Services',
-            icon: <FaHeadset className="display-4 text-primary mb-3" />,
-            description: 'Responsive technical support services to keep your IT infrastructure running smoothly with minimal downtime.',
-            features: [
-                '24/7 helpdesk support',
-                'Remote troubleshooting',
-                'On-site technical assistance',
-                'System updates and patching',
-                'User training and education',
-                'Preventive maintenance'
-            ],
-            popular: false
+            details: "We provide high-quality hardware solutions to complement our software offerings, ensuring a complete ICT ecosystem for your business."
         }
     ];
 
     return (
-        <div className="products-section py-5">
-            <Container>
-                <div className="text-center mb-5">
-                    <h1 className="display-4 fw-bold text-primary">Our Products & Services</h1>
-                    <p className="lead text-muted">Comprehensive IT solutions tailored to your business needs</p>
-                    <div className="separator my-4"></div>
-                </div>
+        <Container className="py-5">
+            <div className="text-center mb-5">
+                <h1 className="fw-bold">Products & Services</h1>
+                <p className="lead text-muted">Discover our comprehensive range of ICT solutions</p>
+            </div>
 
-                <Row xs={1} md={2} lg={3} className="g-4">
-                    {productCategories.map((category) => (
-                        <Col key={category.id}>
-                            <Card
-                                className={`h-100 product-card ${hoveredCard === category.id ? 'hovered' : ''}`}
-                                onMouseEnter={() => setHoveredCard(category.id)}
-                                onMouseLeave={() => setHoveredCard(null)}
-                            >
-                                {category.popular && (
-                                    <div className="popular-badge">
-                                        <Badge bg="warning" className="px-3 py-2">
-                                            <FaStar className="me-1" /> Popular Choice
-                                        </Badge>
-                                    </div>
-                                )}
-                                <Card.Body className="text-center p-4">
-                                    <div className="icon-container mb-3">
-                                        {category.icon}
-                                    </div>
-                                    <Card.Title as="h3" className="fw-bold mb-3">{category.title}</Card.Title>
-                                    <Card.Text className="text-muted mb-4">{category.description}</Card.Text>
-
-                                    <div className="features-list mb-4">
-                                        <h5 className="features-heading">Key Features</h5>
-                                        <ul className="list-unstyled">
-                                            {category.features.map((feature, index) => (
-                                                <li key={index} className="mb-2">
-                                                    <span className="feature-bullet me-2">✓</span>
-                                                    {feature}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
+            {solutions.map((solution, index) => (
+                <div id={solution.id} key={index} className="mb-5 product-section">
+                    <Row className={index % 2 === 0 ? "" : "flex-row-reverse"}>
+                        <Col md={6} className="mb-4 mb-md-0">
+                            <div className="p-4 h-100 d-flex flex-column justify-content-center">
+                                <h2 className="fw-bold">{solution.title}</h2>
+                                <p className="lead">{solution.description}</p>
+                                <p>{solution.details}</p>
+                            </div>
+                        </Col>
+                        <Col md={6}>
+                            <Card className="shadow-sm h-100">
+                                <Card.Body>
+                                    <h3 className="h5 fw-bold mb-4">Key Features</h3>
+                                    <Row xs={1} md={2}>
+                                        {solution.features.map((feature, idx) => (
+                                            <Col key={idx} className="mb-3">
+                                                <div className="d-flex align-items-start">
+                                                    <div className="text-primary me-2">
+                                                        <i className="bi bi-check-circle-fill"></i>
+                                                    </div>
+                                                    <div>{feature}</div>
+                                                </div>
+                                            </Col>
+                                        ))}
+                                    </Row>
                                 </Card.Body>
-                                <Card.Footer className="bg-transparent border-0 pb-4">
-                                    <Link to={`/products/${category.id}`}>
-                                        <Button variant="outline-primary" className="learn-more-btn">
-                                            Learn More <FaArrowRight className="ms-2" />
-                                        </Button>
-                                    </Link>
-                                </Card.Footer>
                             </Card>
                         </Col>
-                    ))}
-                </Row>
-
-                <div className="text-center mt-5">
-                    <h3 className="mb-4">Need a customized solution?</h3>
-                    <Link to="/contact">
-                        <Button variant="primary" size="lg" className="px-5 py-3 contact-btn">
-                            Contact Our Experts
-                        </Button>
-                    </Link>
+                    </Row>
                 </div>
-            </Container>
-        </div>
+            ))}
+
+            <div className="mt-5 pt-5 border-top">
+                <h2 className="fw-bold text-center mb-4">Frequently Asked Questions</h2>
+                <Accordion>
+                    <Accordion.Item eventKey="0">
+                        <Accordion.Header>Do you offer customization for your software products?</Accordion.Header>
+                        <Accordion.Body>
+                            Yes, we understand that every business has unique requirements. All our software solutions can be customized to meet your specific needs. Our team works closely with you to understand your requirements and tailor our solutions accordingly.
+                        </Accordion.Body>
+                    </Accordion.Item>
+                    <Accordion.Item eventKey="1">
+                        <Accordion.Header>What support options are available after implementation?</Accordion.Header>
+                        <Accordion.Body>
+                            We provide comprehensive support for all our products and services. This includes regular updates, technical support, and training sessions. We also offer maintenance contracts to ensure your systems run smoothly at all times.
+                        </Accordion.Body>
+                    </Accordion.Item>
+                    <Accordion.Item eventKey="2">
+                        <Accordion.Header>Can your systems integrate with our existing software?</Accordion.Header>
+                        <Accordion.Body>
+                            Yes, our solutions are designed with integration capabilities in mind. We can work with your existing systems to ensure smooth data flow and process continuity across your business operations.
+                        </Accordion.Body>
+                    </Accordion.Item>
+                </Accordion>
+            </div>
+        </Container>
     );
-};
+}
 
 export default Products;

@@ -1,145 +1,237 @@
-import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
-import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaClock } from 'react-icons/fa';
-import CallbackForm from '../components/CallbackForm';
+import React, { useState } from 'react';
+import { Container, Row, Col, Form, Button, Card, Alert } from 'react-bootstrap';
 
-const Contact = () => {
+function Contact() {
+    const [validated, setValidated] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    const handleSubmit = async (event) => {
+        const form = event.currentTarget;
+        event.preventDefault();
+
+        if (form.checkValidity() === false) {
+            event.stopPropagation();
+            setValidated(true);
+            return;
+        }
+
+        // Collect form data
+        const formData = new FormData(form);
+        setLoading(true);
+        setError(null);
+
+        try {
+            // Replace with your Formspree form ID
+            const response = await fetch('https://formspree.io/f/xldjedqq', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                setSubmitted(true);
+                form.reset();
+                setValidated(false);
+            } else {
+                const data = await response.json();
+                throw new Error(data.error || 'Form submission failed');
+            }
+        } catch (err) {
+            setError(err.message || 'Something went wrong. Please try again.');
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
-        <>
-            {/* Page Header */}
-            <section className="page-header">
-                <Container className="position-relative">
-                    <Row>
-                        <Col lg={8} md={10}>
-                            <h1 className="display-4 fw-bold mb-4">Contact Us</h1>
-                            <p className="lead">
-                                Get in touch with our team for inquiries, support, or to discuss how our solutions can help your business.
-                            </p>
-                        </Col>
-                    </Row>
-                </Container>
-            </section>
+        <Container className="py-5">
+            <div className="text-center mb-5">
+                <h1 className="fw-bold">Contact Us</h1>
+                <p className="lead text-muted">Get in touch with our team for inquiries or support</p>
+            </div>
 
-            {/* Contact Info & Form Section */}
-            <section className="section-padding">
-                <Container>
-                    <Row>
-                        <Col lg={6} className="mb-5 mb-lg-0">
-                            <h2 className="mb-4">Get In Touch</h2>
-                            <p className="mb-5">
-                                Whether you have a question about our products, need technical support, or want to explore how our solutions can benefit your business, our team is ready to assist you.
-                            </p>
+            <Row>
+                <Col lg={7} className="mb-4 mb-lg-0">
+                    <Card className="shadow-sm h-100 border-0 rounded-lg">
+                        <Card.Body className="p-4 p-md-5">
+                            <h2 className="h4 fw-bold mb-4">Send us a message</h2>
 
-                            <div className="contact-info-cards">
+                            {submitted && (
+                                <Alert variant="success" onClose={() => setSubmitted(false)} dismissible>
+                                    Your message has been sent successfully! We'll get back to you soon.
+                                </Alert>
+                            )}
+
+                            {error && (
+                                <Alert variant="danger" onClose={() => setError(null)} dismissible>
+                                    {error}
+                                </Alert>
+                            )}
+
+                            <Form noValidate validated={validated} onSubmit={handleSubmit}>
                                 <Row>
-                                    <Col md={6} className="mb-4">
-                                        <div className="card card-hover-effect border-0 shadow h-100 p-4">
-                                            <div className="d-flex align-items-center mb-3">
-                                                <div className="icon-circle bg-primary text-white">
-                                                    <FaMapMarkerAlt />
-                                                </div>
-                                                <h5 className="ms-3 mb-0">Visit Us</h5>
-                                            </div>
-                                            <p className="mb-0">
-                                                123 Business Avenue<br />
-                                                Kampala, Uganda
-                                            </p>
-                                        </div>
+                                    <Col md={6} className="mb-3">
+                                        <Form.Group controlId="formName">
+                                            <Form.Label>Full Name</Form.Label>
+                                            <Form.Control
+                                                required
+                                                type="text"
+                                                name="name"
+                                                placeholder="Enter your full name"
+                                                className="py-2 border-primary-subtle"
+                                            />
+                                            <Form.Control.Feedback type="invalid">
+                                                Please provide your name.
+                                            </Form.Control.Feedback>
+                                        </Form.Group>
                                     </Col>
 
-                                    <Col md={6} className="mb-4">
-                                        <div className="card card-hover-effect border-0 shadow h-100 p-4">
-                                            <div className="d-flex align-items-center mb-3">
-                                                <div className="icon-circle bg-primary text-white">
-                                                    <FaPhone />
-                                                </div>
-                                                <h5 className="ms-3 mb-0">Call Us</h5>
-                                            </div>
-                                            <p className="mb-0">
-                                                +256 700 000 000<br />
-                                                +256 700 000 001
-                                            </p>
-                                        </div>
-                                    </Col>
-
-                                    <Col md={6} className="mb-4">
-                                        <div className="card card-hover-effect border-0 shadow h-100 p-4">
-                                            <div className="d-flex align-items-center mb-3">
-                                                <div className="icon-circle bg-primary text-white">
-                                                    <FaEnvelope />
-                                                </div>
-                                                <h5 className="ms-3 mb-0">Email Us</h5>
-                                            </div>
-                                            <p className="mb-0">
-                                                info@bmksystems.com<br />
-                                                support@bmksystems.com
-                                            </p>
-                                        </div>
-                                    </Col>
-
-                                    <Col md={6} className="mb-4">
-                                        <div className="card card-hover-effect border-0 shadow h-100 p-4">
-                                            <div className="d-flex align-items-center mb-3">
-                                                <div className="icon-circle bg-primary text-white">
-                                                    <FaClock />
-                                                </div>
-                                                <h5 className="ms-3 mb-0">Working Hours</h5>
-                                            </div>
-                                            <p className="mb-0">
-                                                Monday - Friday: 8am - 5pm<br />
-                                                Saturday: 9am - 1pm
-                                            </p>
-                                        </div>
+                                    <Col md={6} className="mb-3">
+                                        <Form.Group controlId="formEmail">
+                                            <Form.Label>Email address</Form.Label>
+                                            <Form.Control
+                                                required
+                                                type="email"
+                                                name="email"
+                                                placeholder="Enter your email"
+                                                className="py-2 border-primary-subtle"
+                                            />
+                                            <Form.Control.Feedback type="invalid">
+                                                Please provide a valid email.
+                                            </Form.Control.Feedback>
+                                        </Form.Group>
                                     </Col>
                                 </Row>
+
+                                <Form.Group className="mb-3" controlId="formPhone">
+                                    <Form.Label>Phone Number</Form.Label>
+                                    <Form.Control
+                                        type="tel"
+                                        name="phone"
+                                        placeholder="Enter your phone number"
+                                        className="py-2 border-primary-subtle"
+                                    />
+                                </Form.Group>
+
+                                <Form.Group className="mb-3" controlId="formSubject">
+                                    <Form.Label>Subject</Form.Label>
+                                    <Form.Control
+                                        required
+                                        type="text"
+                                        name="subject"
+                                        placeholder="Enter subject"
+                                        className="py-2 border-primary-subtle"
+                                    />
+                                    <Form.Control.Feedback type="invalid">
+                                        Please provide a subject.
+                                    </Form.Control.Feedback>
+                                </Form.Group>
+
+                                <Form.Group className="mb-4" controlId="formMessage">
+                                    <Form.Label>Message</Form.Label>
+                                    <Form.Control
+                                        required
+                                        as="textarea"
+                                        rows={4}
+                                        name="message"
+                                        placeholder="Enter your message"
+                                        className="py-2 border-primary-subtle"
+                                    />
+                                    <Form.Control.Feedback type="invalid">
+                                        Please provide a message.
+                                    </Form.Control.Feedback>
+                                </Form.Group>
+
+                                <Button
+                                    variant="primary"
+                                    type="submit"
+                                    className="w-100 py-2 fw-semibold"
+                                    disabled={loading}
+                                >
+                                    {loading ? 'Sending...' : 'Send Message'}
+                                </Button>
+                            </Form>
+                        </Card.Body>
+                    </Card>
+                </Col>
+
+                <Col lg={5}>
+                    <Card className="shadow-sm mb-4 border-0 rounded-lg bg-primary bg-gradient text-white">
+                        <Card.Body className="p-4 p-md-5">
+                            <h2 className="h4 fw-bold mb-4">Contact Information</h2>
+
+                            <div className="d-flex mb-4">
+                                <div className="me-3">
+                                    <div className="bg-white text-primary rounded-circle p-2 d-flex align-items-center justify-content-center" style={{ width: '40px', height: '40px' }}>
+                                        <i className="bi bi-geo-alt-fill fs-5"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h5 className="h6 fw-bold">Address</h5>
+                                    <p className="mb-0">123 Business Park, Example Street<br />City, Country</p>
+                                </div>
                             </div>
-                        </Col>
 
-                        <Col lg={6}>
-                            <div className="card contact-form-card border-0 shadow">
-                                <CallbackForm />
+                            <div className="d-flex mb-4">
+                                <div className="me-3">
+                                    <div className="bg-white text-primary rounded-circle p-2 d-flex align-items-center justify-content-center" style={{ width: '40px', height: '40px' }}>
+                                        <i className="bi bi-telephone-fill fs-5"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h5 className="h6 fw-bold">Phone</h5>
+                                    <p className="mb-0">+123 456 7890</p>
+                                </div>
                             </div>
-                        </Col>
-                    </Row>
-                </Container>
-            </section>
 
-            {/* Map Section */}
-            <section className="pb-0">
-                <div className="map-container">
-                    <div className="ratio ratio-21x9" style={{ maxHeight: '500px' }}>
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127672.75772082225!2d32.5472257!3d0.3175716!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x177dbc0f8b21fb0d%3A0x93c9499f34a0b9c8!2sKampala%2C%20Uganda!5e0!3m2!1sen!2sus!4v1709644581417!5m2!1sen!2sus"
-                            width="600"
-                            height="450"
-                            style={{ border: 0 }}
-                            allowFullScreen=""
-                            loading="lazy"
-                            referrerPolicy="no-referrer-when-downgrade"
-                        ></iframe>
-                    </div>
-                </div>
-            </section>
+                            <div className="d-flex mb-4">
+                                <div className="me-3">
+                                    <div className="bg-white text-primary rounded-circle p-2 d-flex align-items-center justify-content-center" style={{ width: '40px', height: '40px' }}>
+                                        <i className="bi bi-envelope-fill fs-5"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h5 className="h6 fw-bold">Email</h5>
+                                    <p className="mb-0">info@bmk-systems.com</p>
+                                </div>
+                            </div>
 
-            {/* CTA Section */}
-            <section className="cta-section mt-5">
-                <Container className="text-center py-5">
-                    <h2 className="mb-4">Ready to Transform Your Business?</h2>
-                    <p className="lead mb-4 w-75 mx-auto">
-                        Contact us today to discuss how our solutions can help your business grow and operate more efficiently.
-                    </p>
-                    <div className="d-flex justify-content-center gap-3">
-                        <a href="tel:+256700000000" className="btn btn-light">
-                            Call Now
-                        </a>
-                        <a href="mailto:info@bmksystems.com" className="btn btn-outline-light">
-                            Email Us
-                        </a>
-                    </div>
-                </Container>
-            </section>
-        </>
+                            <div className="d-flex">
+                                <div className="me-3">
+                                    <div className="bg-white text-primary rounded-circle p-2 d-flex align-items-center justify-content-center" style={{ width: '40px', height: '40px' }}>
+                                        <i className="bi bi-clock-fill fs-5"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h5 className="h6 fw-bold">Business Hours</h5>
+                                    <p className="mb-0">Monday - Friday: 8:00 AM - 5:00 PM<br />Saturday & Sunday: Closed</p>
+                                </div>
+                            </div>
+                        </Card.Body>
+                    </Card>
+
+                    <Card className="shadow-sm border-0 rounded-lg">
+                        <Card.Body className="p-4 p-md-5">
+                            <div className="text-center mb-3">
+                                <div className="bg-primary text-white rounded-circle p-3 d-inline-flex align-items-center justify-content-center mb-3" style={{ width: '60px', height: '60px' }}>
+                                    <i className="bi bi-headset fs-2"></i>
+                                </div>
+                                <h3 className="h4 fw-bold">Need immediate assistance?</h3>
+                                <p>Request a callback and our team will contact you as soon as possible.</p>
+                            </div>
+                            <Button as="a" href="/callback" variant="primary" size="lg" className="w-100 py-2 fw-semibold">
+                                Request Callback
+                            </Button>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
+        </Container>
     );
-};
+}
 
 export default Contact;
