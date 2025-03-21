@@ -33,7 +33,8 @@ function Home() {
         {
             title: "Training Services",
             description: "Professional training in ODK, REDCap, programming, and more.",
-            icon: "bi bi-mortarboard-fill"
+            icon: "bi bi-mortarboard-fill",
+            link: "/training"
         }
     ];
 
@@ -76,7 +77,10 @@ function Home() {
                                     </div>
                                     <Card.Title className="fw-bold">{service.title}</Card.Title>
                                     <Card.Text>{service.description}</Card.Text>
-                                    <Button as={Link} to={`/products#${service.title.toLowerCase().replace(/\s+/g, '-')}`} variant="outline-primary" className="mt-2">Learn More</Button>
+                                    <Button as={Link} to={service.link || `/products#${service.title.toLowerCase().replace(/\s+/g, '-')}`} variant="outline-primary" className="mt-2">
+                                        Learn More
+                                    </Button>
+
                                 </Card.Body>
                             </Card>
                         </Col>
