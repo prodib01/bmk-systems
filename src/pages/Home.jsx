@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import heroImage from '../assets/images/hero.jpg'; // Add your hero image
+import heroImage from '../assets/images/hero.jpg';
 
 function Home() {
     const services = [

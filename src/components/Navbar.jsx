@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import logo from '../assets/images/logo2.png';
+import logo from '../assets/images/lo.png';
 
 function NavBar() {
     return (
@@ -14,8 +14,10 @@ function NavBar() {
                         height="40"
                         className="d-inline-block align-top mr-2"
                     />
+
                     BMK-Systems
                 </Navbar.Brand>
+
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ms-auto">
@@ -27,6 +29,7 @@ function NavBar() {
                         <Nav.Link as={Link} to="/callback" className="btn btn-primary text-white ms-2">Request Callback</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
+
             </Container>
         </Navbar>
     );
