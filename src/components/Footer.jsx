@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, ListGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import logo from '../assets/images/log.png';
+import logo from '../assets/images/l.png';
 
 function Footer() {
     const currentYear = new Date().getFullYear();
@@ -37,7 +37,7 @@ function Footer() {
                             <Col xs={6}>
                                 <ListGroup variant="flush" className="footer-links">
                                     <ListGroup.Item action as={Link} to="/" className="bg-transparent text-white border-0 ps-0 py-1">Home</ListGroup.Item>
-                                    <ListGroup.Item action as={Link} to="/about" className="bg-transparent text-white border-0 ps-0 py-1">About Us</ListGroup.Item>
+                                    {/*<ListGroup.Item action as={Link} to="/about" className="bg-transparent text-white border-0 ps-0 py-1">About Us</ListGroup.Item>*/}
                                     <ListGroup.Item action as={Link} to="/products" className="bg-transparent text-white border-0 ps-0 py-1">Products & Services</ListGroup.Item>
                                     <ListGroup.Item action as={Link} to="/training" className="bg-transparent text-white border-0 ps-0 py-1">Training</ListGroup.Item>
                                 </ListGroup>
