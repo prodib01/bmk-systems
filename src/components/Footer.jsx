@@ -11,9 +11,9 @@ function Footer() {
             <Container>
                 <Row className="mb-4">
                     <Col lg={4} className="mb-4 mb-lg-0">
-                        <div className="mb-3">
-                            <img src={logo} alt="BMK-Systems Logo" height="50" />
-                        </div>
+                        {/*<div className="mb-3">*/}
+                        {/*    <img src={logo} alt="BMK-Systems Logo" height="50" />*/}
+                        {/*</div>*/}
                         <p>BMK-Systems provides cutting-edge software solutions and IT services to transform your business operations and drive growth in today's digital landscape.</p>
                         <div className="d-flex mt-3">
                             <a href="https://facebook.com" className="me-3 text-white" aria-label="Facebook">
